@@ -1,0 +1,193 @@
+<div class="dashboard-container">
+    <header>
+        <div class="branding">
+            <h1>Fees Tracking System</h1>
+            <p>Manage student enrollments and fee collections efficiently</p>
+        </div>
+        <div class="actions">
+            <button class="btn-primary" (click)="onAdd()">
+                <i class="bi bi-plus-lg"></i>
+                New Enrollment
+            </button>
+        </div>
+    </header>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon total">
+                <i class="bi bi-people"></i>
+            </div>
+            <div class="stat-info">
+                <div class="label">Total Students</div>
+                <div class="value">{{enrollmentList.length}}</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon received">
+                <i class="bi bi-cash-stack"></i>
+            </div>
+            <div class="stat-info">
+                <div class="label">Total Received</div>
+                <div class="value">₹ {{batchData?.totalreceived}}</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon pending">
+                <i class="bi bi-clock-history"></i>
+            </div>
+            <div class="stat-info">
+                <div class="label">Pending Fees</div>
+                <div class="value">₹ {{batchData?.totalpending}}</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon batches">
+                <i class="bi bi-layers"></i>
+            </div>
+            <div class="stat-info">
+                <div class="label">Active Batches</div>
+                <div class="value">{{batchData?.totalbatches}}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Table Section -->
+    <div class="data-section">
+        <div class="section-header">
+            <h2>Recent Enrollments</h2>
+            <div class="search-box">
+                <!-- Search UI can be added here -->
+            </div>
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Student</th>
+                        <th>Contact</th>
+                        <th>Batch</th>
+                        <th>Total Fees</th>
+                        <th>EMI 1</th>
+                        <th>EMI 2</th>
+                        <th>EMI 3</th>
+                        <th>Received</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(item of enrollmentList; track $index){
+
+
+                    <tr>
+                        <td>{{$index + 1}}</td>
+                        <td>
+                            <div class="student-info">
+                                <div class="avatar">{{item.studentName.charAt(0)+item.studentName.charAt(1)}}</div>
+                                <div style="font-weight: 600;">{{item.studentName}}</div>
+                            </div>
+                        </td>
+                        <td>{{item.contactNo}}</td>
+                        <td><span class="batch-tag">{{item.batchId}}</span></td>
+                        <td>₹ {{item.totalFees}}</td>
+                        <td>₹ {{item.emi1}}</td>
+                        <td>₹ {{item.emi2}}</td>
+                        <td>₹ {{item.emi3}}</td>
+                        <td>₹ {{item.totalReceived}}</td>
+                        <td>
+                            <span class="status-badge" [class.paid]="item.status === 'Paid'"
+                                [class.partial]="item.status === 'Partial'" [class.not-paid]="item.status === 'Unpaid'">
+                                {{item.status}}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-btns">
+                                <button class="btn-icon edit" (click)="onEdit(item)"><i
+                                        class="bi bi-pencil"></i></button>
+                                <button class="btn-icon delete" (click)="onDelete(item.enrollmentId)"><i
+                                        class="bi bi-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Enrollment Modal (Mock Overlay) -->
+<div class="modal-overlay" #modal> <!-- Add 'open' class to show -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 style="margin:0; font-size: 1.5rem;">New Enrollment</h3>
+            <button class="btn-icon" (click)="closeModal()"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="modal-body">
+            <form class="form-grid">
+                <div class="form-group">
+                    <label>Student Name</label>
+                    <input type="text" name="studentName" [(ngModel)]="addNewEnrollment.studentName"
+                        class="form-control" placeholder="Enter full name">
+                </div>
+                <div class="form-group">
+                    <label>Contact Number</label>
+                    <input type="text" name="contactNo" [(ngModel)]="addNewEnrollment.contactNo" class="form-control"
+                        placeholder="+91 00000 00000">
+                </div>
+                <select name="batchId" [(ngModel)]="addNewEnrollment.batchId" class="form-control">
+                    <option value="0">Select Batch</option>
+                    @for(item of batchList; track $index){
+                    <option [value]="item.batchId">{{item.batchName}}</option>
+                    }
+                </select>
+                <div class="form-group">
+                    <label>Total Fees</label>
+                    <input type="number" name="totalFees" [(ngModel)]="addNewEnrollment.totalFees" class="form-control"
+                        placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>EMI 1</label>
+                    <input type="number" name="emi1" [(ngModel)]="addNewEnrollment.emi1" class="form-control"
+                        placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>EMI 2</label>
+                    <input type="number" name="emi2" [(ngModel)]="addNewEnrollment.emi2" class="form-control"
+                        placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>EMI 3</label>
+                    <input type="number" name="emi3" [(ngModel)]="addNewEnrollment.emi3" class="form-control"
+                        placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>Total Received</label>
+                    <input type="number" name="totalReceived" [(ngModel)]="addNewEnrollment.totalReceived"
+                        class="form-control" placeholder="0.00">
+                </div>
+                <div class="form-group" style="grid-column: span 2;">
+                    <label>Status</label>
+                    <input type="text" name="status" [(ngModel)]="addNewEnrollment.status" class="form-control"
+                        placeholder="Payment Status">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-secondary" (click)="closeModal()">Cancel</button>
+            @if(addNewEnrollment.enrollmentId == 0){
+
+            <button class="btn btn-primary" type="button" (click)="AddEnrollment()">Add Enrollment</button>
+
+            }@else {
+            <button class="btn btn-primary" type="button" (click)="onUpdateEnrollment()">Update Enrollment</button>
+
+            }
+        </div>
+    </div>
+</div>

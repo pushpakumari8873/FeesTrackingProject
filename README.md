@@ -1,59 +1,61 @@
-# FeesTrackingProject
+# Fees Collection Tracker App 💰
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.14.
+A professional-grade **Fees Tracking System** built with **Angular 20**. This application is a versatile solution for any domain that requires tracking payments, such as Educational Institutes, Shops providing products on EMI, Gym memberships, and more. 
 
-## Development server
+It helps you efficiently track the amount you are expected to receive and monitor pending payments, turning your tracking process into a streamlined product.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
+## ✨ Key Functionality
+
+- **👤 Candidate Enrollment**: Seamlessly register new students or clients into the system.
+- **📊 Payment Tracking**: Monitor fee collections, EMIs, and pending balances in real-time.
+- **📈 Dashboard Analytics**: 
+  - Instant overview of Total Students, Total Fees Received, and Pending Fees.
+  - Interactive summary cards with modern glassmorphic design.
+- **🎨 Premium UI/UX**:
+  - Fully responsive layout for all devices.
+  - Custom typography (Outfit) and smooth micro-animations.
+
+---
+
+## � API Integration
+
+The project is designed to integrate with the **FreeProjectAPI** backend for robust data management.
+
+- **Base URL**: `https://freeprojectapi.com/api.html`
+- **API Key**: `FeesTracking`
+- **Key Endpoints**:
+  - `GET /GetDashboardStats`: Fetch summary stats for the dashboard cards.
+  - `GET /GetAllEnrollments`: Retrieve the complete list of enrolled candidates.
+  - `POST /AddEnrollment`: Submit new candidate data to the database.
+  - `DELETE /DeleteEnrollmentByEnrollmentId?id={id}`: Remove a specific record.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Core Framework**: [Angular 20](https://angular.io/) (Standalone Components)
+- **Styling**: Vanilla CSS3 (Custom Design System)
+- **Icons**: [Bootstrap Icons](https://icons.getbootstrap.com/)
+- **Typography**: [Google Fonts (Outfit)](https://fonts.google.com/specimen/Outfit)
+
+---
+
+## 📂 Project Structure
+
+```text
+src/
+├── app/
+│   ├── fees-tracking/           # Main Feature Module
+│   │   ├── fees-tracking.ts     # Component Logic (Standalone)
+│   │   ├── fees-tracking.html   # Premium UI Structure
+│   │   └── fees-tracking.css    # Custom Modern Styling
+│   ├── app.routes.ts            # Routing Configuration
+│   └── app.config.ts            # Application Providers
+├── assets/                      # Static Assets & Images
+└── index.html                   # Entry point with Google Fonts & CDNs
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
