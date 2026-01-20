@@ -17,6 +17,8 @@ It helps you efficiently track the amount you are expected to receive and monito
   - Fully responsive layout for all devices.
   - Custom typography (Outfit) and smooth micro-animations.
 
+  
+
 ---
 
 ## � API Integration
